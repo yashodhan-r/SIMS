@@ -1,0 +1,19 @@
+[project]
+name = "week1assignment"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "arcade>=3.3.3",
+    "numpy>=2.5.3",
+    "playsound3>=3.3.2",
+    "pygame>=2.6.1",
+]
+
+[project.scripts]
+week1assignment = "week1assignment:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
