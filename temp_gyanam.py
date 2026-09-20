@@ -57,11 +57,11 @@ class SandSim:
     """Holds the grid and does the physics + rendering.
 
     The grid is ``self._types``, a 2D NumPy array of shape (HEIGHT, WIDTH)
-    where grid[y, x] is the material at row ``y`` (0 = top) and column
+    where grid[y, x] is the material at row ``y`` (0 = top) and columnf
     ``x`` (0 = left).
     """
 
-    def __init__(self, width: int, height: int, cell_size: int = 4, fps: int = 60) -> None:
+    def __init__(self, width: int, height: int, cell_size: int = 3, fps: int = 60) -> None:
         self.cell_size = cell_size
         self.fps = fps
         self.brush = Material.SAND
@@ -101,7 +101,7 @@ class SandSim:
         disc = ((xx - x) ** 2 + (yy - y) ** 2) <= r * r
         xs, ys = xx[disc], yy[disc]
         self._types[ys, xs] = int(self.brush)
-
+        
     # ------------------------------------------------------------------ #
     # Physics
     # ------------------------------------------------------------------ #
@@ -119,8 +119,6 @@ class SandSim:
             2. else pick a random side; if the cell down-left or down-right
                is EMPTY -> move diagonally there
             3. else stay put (it rests)
-            
-        
         * WATER: the same as sand, PLUS:
             4. if it couldn't fall at all, move into a random EMPTY
                left/right neighbour — this is what makes water pool flat.
@@ -129,7 +127,29 @@ class SandSim:
         that already moved. Copy the grid before the loop, read from the
         copy, and write the result into the live grid (or vice versa).
         """
-        copyofarr = np.zeros((self.height, self.width), dtype=np.uint8)
+        columns = np.arange(self.width)
+        np.random.permutation(columns)
+
+        copyofarr = np.copy(self._types)
+
+        for y in range(self.height -1,-1,-1):
+            for x in columns:
+                if((copyofarr[y-1,x] == Material.SAND)):
+                    if((copyofarr[y,x] == Material.EMPTY)):
+                        self._types[y,x] = Material.SAND
+                        self._types[y-1,x] = Material.EMPTY
+                """try:
+                    if((self._types[y,x] != Material.EMPTY)&((self._types[y,x-1] == Material.EMPTY))|(self._types[y,x+1] == Material.EMPTY)):
+                        self._types[y,np.random.choice([x-1,x+1])] == Material.SAND
+                        self._types[y-1,x] == Material.EMPTY
+                except:
+                    pass"""
+                    
+                if((copyofarr[y,x] == Material.EMPTY)& (copyofarr[y-1,x]==Material.WATER)):
+                    self._types[y,x] = Material.WATER
+                    self._types[y-1,x] = Material.EMPTY
+
+        """copyofarr = np.zeros((self.height, self.width), dtype=np.uint8)
         for i in range(self.height):
             for j in range(self.width):
                 copyofarr[i][j] = self._types[i][j]
@@ -141,33 +161,9 @@ class SandSim:
                 if copyofarr[i][j] == Material.SAND:    
                     if copyofarr[i + 1][j] == Material.EMPTY:
                         self._types[i + 1][j] = Material.SAND
-                        self._types[i][j] = Material.EMPTY
-                elif copyofarr[i][j] == Material.WATER:
-                    if copyofarr[i + 1][j] == Material.EMPTY:
-                        self._types[i + 1][j] = Material.WATER
-                        self._types[i][j] = Material.EMPTY
-                    elif copyofarr[i + 1][j] != Material.EMPTY:
-                        if j + 1 < self.width and copyofarr[i][j + 1] == Material.EMPTY and j - 1 >= 0 and copyofarr[i][j - 1] == Material.EMPTY:
-                            if _rng.random() < 0.5:
-                                self._types[i][j + 1] = Material.WATER
-                                self._types[i][j] = Material.EMPTY
-                            else:
-                                self._types[i][j - 1] = Material.WATER
-                                self._types[i][j] = Material.EMPTY
-                        elif j + 1 < self.width and copyofarr[i][j + 1] == Material.EMPTY:
-                            self._types[i][j + 1] = Material.WATER
-                            self._types[i][j] = Material.EMPTY
-                        elif j - 1 >= 0 and copyofarr[i][j - 1] == Material.EMPTY:
-                            self._types[i][j - 1] = Material.WATER
-                            self._types[i][j] = Material.EMPTY
-                    else:
-                        continue
-                        
+                        self._types[i][j] = Material.EMPTY"""
 
-                    
-                        
-
-        #raise NotImplementedError("implement the physics, then delete this line")
+       # raise NotImplementedError("implement the physics, then delete this line")
 
     # ------------------------------------------------------------------ #
     # Rendering (boilerplate — nothing to do here)
