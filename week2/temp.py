@@ -142,24 +142,26 @@ class SandSim:
                     if copyofarr[i + 1][j] == Material.EMPTY:
                         self._types[i + 1][j] = Material.SAND
                         self._types[i][j] = Material.EMPTY
+                    elif j + 1 < self.width:
+                        if copyofarr[i + 1][j + 1] == Material.EMPTY and _rng.random() < 0.5:
+                            self._types[i + 1][j + 1] = Material.SAND
+                            self._types[i][j] = Material.EMPTY
+                        elif j - 1 >= 0 and copyofarr[i + 1][j - 1] == Material.EMPTY:
+                            self._types[i + 1][j - 1] = Material.SAND
+                            self._types[i][j] = Material.EMPTY
                 elif copyofarr[i][j] == Material.WATER:
                     if copyofarr[i + 1][j] == Material.EMPTY:
                         self._types[i + 1][j] = Material.WATER
                         self._types[i][j] = Material.EMPTY
-                    elif copyofarr[i + 1][j] != Material.EMPTY:
-                        if j + 1 < self.width and copyofarr[i][j + 1] == Material.EMPTY and j - 1 >= 0 and copyofarr[i][j - 1] == Material.EMPTY:
-                            if _rng.random() < 0.5:
-                                self._types[i][j + 1] = Material.WATER
-                                self._types[i][j] = Material.EMPTY
-                            else:
-                                self._types[i][j - 1] = Material.WATER
-                                self._types[i][j] = Material.EMPTY
-                        elif j + 1 < self.width and copyofarr[i][j + 1] == Material.EMPTY:
-                            self._types[i][j + 1] = Material.WATER
+                    elif j + 1 < self.width:
+                        # make water behave like water 
+                        if copyofarr[i + 1][j + 1] == Material.EMPTY and _rng.random() < 0.5:
+                            self._types[i + 1][j + 1] = Material.WATER
                             self._types[i][j] = Material.EMPTY
-                        elif j - 1 >= 0 and copyofarr[i][j - 1] == Material.EMPTY:
-                            self._types[i][j - 1] = Material.WATER
+                        elif j - 1 >= 0 and copyofarr[i + 1][j - 1] == Material.EMPTY:
+                            self._types[i + 1][j - 1] = Material.WATER
                             self._types[i][j] = Material.EMPTY
+                        
                     else:
                         continue
                         

@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# The venv is per-machine (platform-specific binaries) — never zip it.
+# Attendees build their own with `uv run` on first start.
+.venv/
+venv/
+
+# uv
+# NOTE: uv.lock IS shipped (committed + zipped) — it pins exact dependency
+# versions so every attendee installs the same stack.

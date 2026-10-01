@@ -1,7 +1,7 @@
 import pygame
 import numpy as np
 import random
-import arcade
+#import arcade
 
 # Configuration
 
@@ -12,8 +12,8 @@ BOWL_CENTER = np.array([WIDTH / 2, HEIGHT / 2], dtype=float)
 BOWL_RADIUS = 300
 
 # Start with 1 ball, then 2. Many at once is the bonus.
-NUM_PARTICLES = 50
-PARTICLE_RADIUS = 5
+NUM_PARTICLES = 1
+PARTICLE_RADIUS = 20
 PARTICLE_SPEED = 150.0
 
 # Pixels per second squared, not m/s^2. Note that +y points DOWN on screen.
@@ -51,7 +51,7 @@ for i in range(NUM_PARTICLES):
 # Pygame setup
 #pygame.mixer.init()
 #pygame.mixer.music.load('sound_final.mp3')
-sound = arcade.load_sound("sound_final.mp3")
+#sound = arcade.load_sound("sound_final.mp3")
 pygame.init()
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))

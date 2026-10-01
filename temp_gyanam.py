@@ -149,6 +149,8 @@ class SandSim:
                     self._types[y,x] = Material.WATER
                     self._types[y-1,x] = Material.EMPTY
 
+
+
         """copyofarr = np.zeros((self.height, self.width), dtype=np.uint8)
         for i in range(self.height):
             for j in range(self.width):
