@@ -130,3 +130,11 @@ twice, and how to avoid checking a ball against itself.
 
 Submission details will be announced separately, so don't worry about that part
 for now.
+
+
+
+#### Answer
+##### Q1:
+We are calculating the position of the balls at sequential time intervals $\Delta t$. This is different from a real ball colliding irl where it's one continuous motion instead of discrete time steps where the physics is applied. 
+In our case, if the ball is near the edge of the boundary, and the velocity is high enough, the new updated position might end up outside the bounds of the arena before a collision check runs and applied collision physics on the ball. 
+reducing $\Delta t$ is one solution to this problem. Doing this will make the computer calculate the physics more frequently. Hopefully before the ball runs outside the arena. This will require extra computing power.
