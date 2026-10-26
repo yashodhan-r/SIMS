@@ -12,8 +12,8 @@ BOWL_CENTER = np.array([WIDTH / 2, HEIGHT / 2], dtype=float)
 BOWL_RADIUS = 300
 
 # Start with 1 ball, then 2. Many at once is the bonus.
-NUM_PARTICLES = 1
-PARTICLE_RADIUS = 20
+NUM_PARTICLES = 250
+PARTICLE_RADIUS = 5
 PARTICLE_SPEED = 150.0
 
 # Pixels per second squared, not m/s^2. Note that +y points DOWN on screen.
@@ -104,7 +104,7 @@ while running:
     for i in range(NUM_PARTICLES):
         # Check if the ball is outside the bowl
         direction_to_center = positions[i] - BOWL_CENTER
-        distance_to_center = np.linalg.norm(direction_to_center)#computes the length of the vector from the ball to the center of the bowl
+        distance_to_center = np.linalg.norm(direction_to_center)#linalg finds magnitude
         if distance_to_center + PARTICLE_RADIUS > BOWL_RADIUS:
             direction_to_center /= distance_to_center #unit direction vector
             #arcade.play_sound(sound)

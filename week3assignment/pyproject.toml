@@ -1,5 +1,5 @@
 [project]
-name = "sims"
+name = "week3assignment"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -8,13 +8,12 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "arcade>=3.3.3",
-    "numpy>=2.5.3",
-    "pygame>=2.6.1",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
 ]
 
 [project.scripts]
-sims = "sims:main"
+week3assignment = "week3assignment:main"
 
 [build-system]
 requires = ["uv_build>=0.12.10,<0.13.0"]
